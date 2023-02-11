@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import ShowItem from "./ShowItem";
+import ShowItemLandscape from "./ShowItemLandscape";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Category = (props) => {
@@ -8,6 +8,7 @@ const Category = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        {/* category name */}
         <Text style={styles.categoryTitle}>{categoryTitle}</Text>
         <MaterialIcons
           name="keyboard-arrow-right"
@@ -18,9 +19,10 @@ const Category = (props) => {
       </View>
 
       <View style={styles.showList}>
+        {/* show list */}
         <FlatList
           data={shows}
-          renderItem={({ item }) => <ShowItem image={item.image} />}
+          renderItem={({ item }) => <ShowItemLandscape image={item.image} />}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}

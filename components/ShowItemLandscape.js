@@ -1,7 +1,7 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
 
-const ShowItem = (props) => {
+const ShowItemLandscape = (props) => {
   const { image } = props;
   return (
     <View style={styles.container}>
@@ -15,7 +15,7 @@ const ShowItem = (props) => {
   );
 };
 
-export default ShowItem;
+export default ShowItemLandscape;
 
 const styles = StyleSheet.create({
   container: {
