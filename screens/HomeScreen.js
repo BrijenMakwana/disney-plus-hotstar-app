@@ -7,11 +7,13 @@ import {
 } from "react-native";
 import React from "react";
 import Banner from "../components/Banner";
-import { bannerList } from "../assets/data/data";
+import { bannerList, shows } from "../assets/data/data";
+import Category from "../components/Category";
 
 const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
+      {/* banners */}
       <View style={styles.bannerList}>
         <FlatList
           data={bannerList}
@@ -30,6 +32,10 @@ const HomeScreen = () => {
           decelerationRate={"fast"}
           snapToInterval={Dimensions.get("window").width}
         />
+
+        {/* categories */}
+        <Category shows={shows} categoryTitle="continue watching" />
+        <Category shows={shows} categoryTitle="watchlist" />
       </View>
     </SafeAreaView>
   );
