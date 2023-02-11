@@ -10,6 +10,7 @@ import Banner from "../components/Banner";
 import { bannerList, shows, shows2 } from "../assets/data/data";
 import CategoryLandscape from "../components/CategoryLandscape";
 import CategoryPortrait from "../components/CategoryPortrait";
+import CategoryTopShows from "../components/CategoryTopShows";
 
 const HomeScreen = () => {
   return (
@@ -39,6 +40,10 @@ const HomeScreen = () => {
         <CategoryLandscape shows={shows} categoryTitle="watchlist" />
         <CategoryPortrait shows={shows2} categoryTitle="latest & trending" />
         <CategoryLandscape shows={shows} categoryTitle="best in sports" />
+        <CategoryTopShows
+          shows={shows2}
+          categoryTitle="top 10 in india today - english"
+        />
       </View>
     </ScrollView>
   );
