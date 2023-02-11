@@ -1,18 +1,19 @@
 import {
   FlatList,
-  SafeAreaView,
+  ScrollView,
   StyleSheet,
   View,
   Dimensions,
 } from "react-native";
 import React from "react";
 import Banner from "../components/Banner";
-import { bannerList, shows } from "../assets/data/data";
-import Category from "../components/Category";
+import { bannerList, shows, shows2 } from "../assets/data/data";
+import CategoryLandscape from "../components/CategoryLandscape";
+import CategoryPortrait from "../components/CategoryPortrait";
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* banners */}
       <View style={styles.bannerList}>
         <FlatList
@@ -34,10 +35,12 @@ const HomeScreen = () => {
         />
 
         {/* categories */}
-        <Category shows={shows} categoryTitle="continue watching" />
-        <Category shows={shows} categoryTitle="watchlist" />
+        <CategoryLandscape shows={shows} categoryTitle="continue watching" />
+        <CategoryLandscape shows={shows} categoryTitle="watchlist" />
+        <CategoryPortrait shows={shows2} categoryTitle="latest & trending" />
+        <CategoryLandscape shows={shows} categoryTitle="best in sports" />
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

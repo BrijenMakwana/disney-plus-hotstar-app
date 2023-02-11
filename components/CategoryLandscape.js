@@ -3,7 +3,7 @@ import React from "react";
 import ShowItemLandscape from "./ShowItemLandscape";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const Category = (props) => {
+const CategoryLandscape = (props) => {
   const { categoryTitle, shows } = props;
   return (
     <View style={styles.container}>
@@ -32,7 +32,7 @@ const Category = (props) => {
   );
 };
 
-export default Category;
+export default CategoryLandscape;
 
 const styles = StyleSheet.create({
   container: {
