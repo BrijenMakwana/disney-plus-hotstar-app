@@ -1,17 +1,17 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, Pressable, StyleSheet } from "react-native";
 import React from "react";
 
 const ShowItemPortrait = (props) => {
-  const { image } = props;
+  const { image, setShowModal } = props;
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => setShowModal(true)}>
       <Image
         source={{
           uri: image,
         }}
         style={styles.showImage}
       />
-    </View>
+    </Pressable>
   );
 };
 

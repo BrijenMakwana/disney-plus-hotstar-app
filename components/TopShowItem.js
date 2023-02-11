@@ -1,10 +1,10 @@
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, Pressable, Text } from "react-native";
 import React from "react";
 
 const TopShowItem = (props) => {
-  const { image, number } = props;
+  const { image, number, setShowModal } = props;
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => setShowModal(true)}>
       <Image
         source={{
           uri: image,
@@ -12,7 +12,7 @@ const TopShowItem = (props) => {
         style={styles.showImage}
       />
       <Text style={styles.number}>{number}</Text>
-    </View>
+    </Pressable>
   );
 };
 

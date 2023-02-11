@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import ShowItemPortrait from "./ShowItemPortrait";
 
 const CategoryPortrait = (props) => {
-  const { categoryTitle, shows } = props;
+  const { categoryTitle, shows, setShowModal } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +22,9 @@ const CategoryPortrait = (props) => {
         {/* show list */}
         <FlatList
           data={shows}
-          renderItem={({ item }) => <ShowItemPortrait image={item.image} />}
+          renderItem={({ item }) => (
+            <ShowItemPortrait image={item.image} setShowModal={setShowModal} />
+          )}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}

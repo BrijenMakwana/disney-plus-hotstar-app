@@ -4,7 +4,7 @@ import ShowItemLandscape from "./ShowItemLandscape";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const CategoryLandscape = (props) => {
-  const { categoryTitle, shows } = props;
+  const { categoryTitle, shows, setShowModal } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +22,9 @@ const CategoryLandscape = (props) => {
         {/* show list */}
         <FlatList
           data={shows}
-          renderItem={({ item }) => <ShowItemLandscape image={item.image} />}
+          renderItem={({ item }) => (
+            <ShowItemLandscape image={item.image} setShowModal={setShowModal} />
+          )}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}

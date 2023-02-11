@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import TopShowItem from "./TopShowItem";
 
 const CategoryTopShows = (props) => {
-  const { categoryTitle, shows } = props;
+  const { categoryTitle, shows, setShowModal } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -23,7 +23,11 @@ const CategoryTopShows = (props) => {
         <FlatList
           data={shows}
           renderItem={({ item }) => (
-            <TopShowItem image={item.image} number={item.id} />
+            <TopShowItem
+              image={item.image}
+              number={item.id}
+              setShowModal={setShowModal}
+            />
           )}
           keyExtractor={(item) => item.id}
           horizontal
