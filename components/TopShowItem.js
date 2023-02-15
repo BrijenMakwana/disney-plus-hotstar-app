@@ -7,7 +7,7 @@ const TopShowItem = (props) => {
     <Pressable style={styles.container} onPress={() => setShowModal(true)}>
       <Image
         source={{
-          uri: image,
+          uri: `https://image.tmdb.org/t/p/w500${image}`,
         }}
         style={styles.showImage}
       />

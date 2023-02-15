@@ -2,9 +2,12 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowItemLandscape from "./ShowItemLandscape";
 import { MaterialIcons } from "@expo/vector-icons";
+import useAPI from "../hooks/useAPI";
 
 const CategoryLandscape = (props) => {
-  const { categoryTitle, shows, setShowModal } = props;
+  const { categoryTitle, setShowModal, apiUrl } = props;
+  const showData = useAPI(apiUrl);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -21,9 +24,12 @@ const CategoryLandscape = (props) => {
       <View style={styles.showList}>
         {/* show list */}
         <FlatList
-          data={shows}
+          data={showData}
           renderItem={({ item }) => (
-            <ShowItemLandscape image={item.image} setShowModal={setShowModal} />
+            <ShowItemLandscape
+              image={item.poster_path}
+              setShowModal={setShowModal}
+            />
           )}
           keyExtractor={(item) => item.id}
           horizontal

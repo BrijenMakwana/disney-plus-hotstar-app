@@ -40,56 +40,45 @@ const HomeScreen = () => {
         />
 
         {/* categories */}
-        <CategoryLandscape
-          shows={shows}
-          categoryTitle="continue watching"
+
+        <CategoryPortrait
+          categoryTitle={APIUrls[0].title}
           setShowModal={setShowModal}
+          apiUrl={APIUrls[0].url}
         />
-        <CategoryLandscape
-          shows={shows}
-          categoryTitle="watchlist"
+
+        <CategoryTopShows
+          categoryTitle={APIUrls[1].title}
           setShowModal={setShowModal}
+          apiUrl={APIUrls[1].url}
         />
         <CategoryPortrait
-          shows={shows2}
-          categoryTitle="latest & trending"
+          categoryTitle={APIUrls[2].title}
           setShowModal={setShowModal}
+          apiUrl={APIUrls[2].url}
         />
         <CategoryLandscape
-          shows={shows}
-          categoryTitle="best in sports"
+          categoryTitle={APIUrls[3].title}
           setShowModal={setShowModal}
+          apiUrl={APIUrls[3].url}
+        />
+
+        <CategoryPortrait
+          categoryTitle={APIUrls[4].title}
+          setShowModal={setShowModal}
+          apiUrl={APIUrls[4].url}
         />
         <CategoryTopShows
-          shows={shows2}
-          categoryTitle="top 10 in india today - english"
+          categoryTitle={APIUrls[5].title}
           setShowModal={setShowModal}
+          apiUrl={APIUrls[5].url}
         />
         <CategoryPortrait
-          shows={shows2}
-          categoryTitle="New Episode Weekly"
+          categoryTitle={APIUrls[6].title}
           setShowModal={setShowModal}
+          apiUrl={APIUrls[6].url}
         />
-        <CategoryPortrait
-          shows={shows2}
-          categoryTitle="HBO Originals"
-          setShowModal={setShowModal}
-        />
-        <CategoryPortrait
-          shows={shows2}
-          categoryTitle="New on Disney+ Hotstar for You"
-          setShowModal={setShowModal}
-        />
-        <CategoryTopShows
-          shows={shows2}
-          categoryTitle="top 10 in india today - hindi"
-          setShowModal={setShowModal}
-        />
-        <CategoryPortrait
-          shows={shows2}
-          categoryTitle="Hotstar Specials"
-          setShowModal={setShowModal}
-        />
+
         {/* show modal */}
         <Modal
           animationType="slide"
