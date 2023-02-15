@@ -10,13 +10,13 @@ import React from "react";
 import { Octicons, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 const ShowCard = (props) => {
-  const { image } = props;
+  const { image, title, description } = props;
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>the last of us</Text>
+      <Text style={styles.title}>{title}</Text>
       <Image
         source={{
-          uri: image,
+          uri: `https://image.tmdb.org/t/p/w500${image}`,
         }}
         style={styles.showImage}
       />
@@ -46,10 +46,8 @@ const ShowCard = (props) => {
         </Pressable>
       </View>
       {/* show description */}
-      <Text style={styles.description}>
-        NEW EPISODE ON SATURDAY AT 7:30 PM. After a global pandemic destrovs
-        civilization. a hardened survivor takes charge of a 14-vear-old girl who
-        may be
+      <Text style={styles.description} numberOfLines={3}>
+        {description || "No description available"}
       </Text>
     </View>
   );

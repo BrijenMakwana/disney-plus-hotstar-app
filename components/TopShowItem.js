@@ -2,9 +2,9 @@ import { Image, StyleSheet, Pressable, Text } from "react-native";
 import React from "react";
 
 const TopShowItem = (props) => {
-  const { image, number, setShowModal } = props;
+  const { image, number, openModal } = props;
   return (
-    <Pressable style={styles.container} onPress={() => setShowModal(true)}>
+    <Pressable style={styles.container} onPress={openModal}>
       <Image
         source={{
           uri: `https://image.tmdb.org/t/p/w500${image}`,

@@ -5,8 +5,13 @@ import TopShowItem from "./TopShowItem";
 import useAPI from "../hooks/useAPI";
 
 const CategoryTopShows = (props) => {
-  const { categoryTitle, apiUrl, setShowModal } = props;
+  const { categoryTitle, apiUrl, setShowModal, setModalData } = props;
   const showData = useAPI(apiUrl);
+
+  const openModal = () => {
+    setShowModal(true);
+    setModalData(showData);
+  };
 
   return (
     <View style={styles.container}>
@@ -29,7 +34,7 @@ const CategoryTopShows = (props) => {
             <TopShowItem
               image={item.poster_path}
               number={index}
-              setShowModal={setShowModal}
+              openModal={openModal}
             />
           )}
           keyExtractor={(item) => item.id}

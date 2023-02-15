@@ -5,8 +5,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useAPI from "../hooks/useAPI";
 
 const CategoryLandscape = (props) => {
-  const { categoryTitle, setShowModal, apiUrl } = props;
+  const { categoryTitle, setShowModal, apiUrl, setModalData } = props;
   const showData = useAPI(apiUrl);
+
+  const openModal = () => {
+    setShowModal(true);
+    setModalData(showData);
+  };
 
   return (
     <View style={styles.container}>
@@ -26,10 +31,7 @@ const CategoryLandscape = (props) => {
         <FlatList
           data={showData}
           renderItem={({ item }) => (
-            <ShowItemLandscape
-              image={item.poster_path}
-              setShowModal={setShowModal}
-            />
+            <ShowItemLandscape image={item.poster_path} openModal={openModal} />
           )}
           keyExtractor={(item) => item.id}
           horizontal

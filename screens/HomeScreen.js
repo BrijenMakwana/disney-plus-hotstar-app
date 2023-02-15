@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Banner from "../components/Banner";
-import { bannerList, shows, shows2 } from "../assets/data/data";
+import { bannerList } from "../assets/data/data";
 import CategoryLandscape from "../components/CategoryLandscape";
 import CategoryPortrait from "../components/CategoryPortrait";
 import CategoryTopShows from "../components/CategoryTopShows";
@@ -17,6 +17,7 @@ import { APIUrls } from "../APIRequests/APIUrls";
 
 const HomeScreen = () => {
   const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState([]);
   return (
     <ScrollView style={styles.container}>
       {/* banners */}
@@ -45,38 +46,45 @@ const HomeScreen = () => {
           categoryTitle={APIUrls[0].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[0].url}
+          setModalData={setModalData}
         />
 
         <CategoryTopShows
           categoryTitle={APIUrls[1].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[1].url}
+          setModalData={setModalData}
         />
         <CategoryPortrait
           categoryTitle={APIUrls[2].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[2].url}
+          setModalData={setModalData}
         />
         <CategoryLandscape
           categoryTitle={APIUrls[3].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[3].url}
+          setModalData={setModalData}
         />
 
         <CategoryPortrait
           categoryTitle={APIUrls[4].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[4].url}
+          setModalData={setModalData}
         />
         <CategoryTopShows
           categoryTitle={APIUrls[5].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[5].url}
+          setModalData={setModalData}
         />
         <CategoryPortrait
           categoryTitle={APIUrls[6].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[6].url}
+          setModalData={setModalData}
         />
 
         {/* show modal */}
@@ -89,8 +97,14 @@ const HomeScreen = () => {
           <View style={styles.showModal}>
             <View style={styles.showList}>
               <FlatList
-                data={shows}
-                renderItem={({ item }) => <ShowCard image={item.image} />}
+                data={modalData}
+                renderItem={({ item }) => (
+                  <ShowCard
+                    image={item.poster_path}
+                    title={item?.title || item?.name}
+                    description={item.overview}
+                  />
+                )}
                 keyExtractor={(item) => item.id}
                 horizontal
                 showsHorizontalScrollIndicator={false}
