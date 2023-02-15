@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import ShowItemPortrait from "./ShowItemPortrait";
 
 const CategoryPortrait = (props) => {
-  const { categoryTitle, shows, setShowModal } = props;
+  const { categoryTitle, shows, setShowModal, apiUrl } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>

@@ -13,6 +13,7 @@ import CategoryLandscape from "../components/CategoryLandscape";
 import CategoryPortrait from "../components/CategoryPortrait";
 import CategoryTopShows from "../components/CategoryTopShows";
 import ShowCard from "../components/ShowCard";
+import { APIUrls } from "../APIRequests/APIUrls";
 
 const HomeScreen = () => {
   const [showModal, setShowModal] = useState(false);
