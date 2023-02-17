@@ -55,7 +55,7 @@ const HomeScreen = () => {
           apiUrl={APIUrls[1].url}
           setModalData={setModalData}
         />
-        <CategoryPortrait
+        <CategoryLandscape
           categoryTitle={APIUrls[2].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[2].url}
@@ -100,9 +100,11 @@ const HomeScreen = () => {
                 data={modalData}
                 renderItem={({ item }) => (
                   <ShowCard
-                    image={item.poster_path}
+                    id={item.id}
+                    image={item.backdrop_path}
                     title={item?.title || item?.name}
                     description={item.overview}
+                    setShowModal={setShowModal}
                   />
                 )}
                 keyExtractor={(item) => item.id}

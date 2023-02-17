@@ -8,9 +8,20 @@ import {
 } from "react-native";
 import React from "react";
 import { Octicons, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const ShowCard = (props) => {
-  const { image, title, description } = props;
+  const { id, image, title, description, setShowModal } = props;
+
+  const navigation = useNavigation();
+
+  const goToShowScreen = () => {
+    setShowModal(false);
+    navigation.navigate("Show", {
+      id: id,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -36,7 +47,7 @@ const ShowCard = (props) => {
           <Text style={styles.watchBtnText}>watch</Text>
         </Pressable>
         {/* info button */}
-        <Pressable style={styles.btnContainer}>
+        <Pressable style={styles.btnContainer} onPress={goToShowScreen}>
           <MaterialCommunityIcons
             name="information-outline"
             size={19}
@@ -84,6 +95,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: 10,
   },
   btnText: {
     color: "#fff",
@@ -99,7 +111,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 7,
     borderRadius: 5,
-    marginHorizontal: 50,
+    marginHorizontal: 40,
   },
   watchBtnText: {
     fontSize: 13,

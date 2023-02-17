@@ -10,7 +10,7 @@ const CategoryPortrait = (props) => {
 
   const openModal = () => {
     setShowModal(true);
-    setModalData(showData);
+    setModalData(showData.results);
   };
 
   return (
@@ -29,7 +29,7 @@ const CategoryPortrait = (props) => {
       <View style={styles.showList}>
         {/* show list */}
         <FlatList
-          data={showData}
+          data={showData.results}
           renderItem={({ item }) => (
             <ShowItemPortrait image={item.poster_path} openModal={openModal} />
           )}

@@ -3,6 +3,7 @@ import React from "react";
 
 const ShowItemPortrait = (props) => {
   const { image, openModal } = props;
+
   return (
     <Pressable style={styles.container} onPress={openModal}>
       <Image

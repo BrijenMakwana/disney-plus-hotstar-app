@@ -10,7 +10,7 @@ const CategoryLandscape = (props) => {
 
   const openModal = () => {
     setShowModal(true);
-    setModalData(showData);
+    setModalData(showData.results);
   };
 
   return (
@@ -29,9 +29,12 @@ const CategoryLandscape = (props) => {
       <View style={styles.showList}>
         {/* show list */}
         <FlatList
-          data={showData}
+          data={showData.results}
           renderItem={({ item }) => (
-            <ShowItemLandscape image={item.poster_path} openModal={openModal} />
+            <ShowItemLandscape
+              image={item.backdrop_path}
+              openModal={openModal}
+            />
           )}
           keyExtractor={(item) => item.id}
           horizontal

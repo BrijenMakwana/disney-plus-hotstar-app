@@ -9,7 +9,7 @@ const useAPI = (apiUrl) => {
       .get(apiUrl)
       .then(function (response) {
         // handle success
-        setData(response.data.results);
+        setData(response.data);
       })
       .catch(function (error) {
         // handle error

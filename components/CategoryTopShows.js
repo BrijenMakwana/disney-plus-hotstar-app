@@ -10,7 +10,7 @@ const CategoryTopShows = (props) => {
 
   const openModal = () => {
     setShowModal(true);
-    setModalData(showData);
+    setModalData(showData.results);
   };
 
   return (
@@ -29,11 +29,11 @@ const CategoryTopShows = (props) => {
       <View style={styles.showList}>
         {/* show list */}
         <FlatList
-          data={showData}
+          data={showData.results}
           renderItem={({ item, index }) => (
             <TopShowItem
               image={item.poster_path}
-              number={index}
+              number={index + 1}
               openModal={openModal}
             />
           )}
