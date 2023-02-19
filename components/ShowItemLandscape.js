@@ -2,9 +2,9 @@ import { Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 
 const ShowItemLandscape = (props) => {
-  const { image, openModal } = props;
+  const { image, btnAction } = props;
   return (
-    <Pressable style={styles.container} onPress={openModal}>
+    <Pressable style={styles.container} onPress={btnAction}>
       <Image
         source={{
           uri: `https://image.tmdb.org/t/p/w500${image}`,

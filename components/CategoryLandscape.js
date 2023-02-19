@@ -33,7 +33,7 @@ const CategoryLandscape = (props) => {
           renderItem={({ item }) => (
             <ShowItemLandscape
               image={item.backdrop_path}
-              openModal={openModal}
+              btnAction={openModal}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -50,12 +50,13 @@ export default CategoryLandscape;
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
+    marginTop: 10,
+    paddingVertical: 5,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 15,
   },
   categoryTitle: {
     fontSize: 15,

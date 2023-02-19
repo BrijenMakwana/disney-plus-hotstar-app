@@ -5,13 +5,17 @@ import {
   StyleSheet,
   Text,
   View,
+  FlatList,
+  ScrollView,
+  WebView,
 } from "react-native";
 import React from "react";
 import UIButton from "../components/UIButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useAPI from "../hooks/useAPI";
 import moment from "moment";
-import { Ionicons, Entypo } from "@expo/vector-icons";
+import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
+import ShowItemPortrait from "../components/ShowItemPortrait";
 
 // TODO: API will change for tv shows
 
@@ -29,6 +33,50 @@ const ShowHeader = (props) => {
   );
 };
 
+const SimilarShows = (props) => {
+  const { id } = props;
+  const navigation = useNavigation();
+  const showData = useAPI(
+    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US&page=1`
+  );
+
+  const changeShowData = (id) => {
+    navigation.push("Show", {
+      id: id,
+    });
+  };
+
+  return (
+    <View style={styles.similarShowsContainer}>
+      <View style={styles.similarShowsHeader}>
+        {/* category name */}
+        <Text style={styles.similarShowsHeading}>More Like This</Text>
+        <MaterialIcons
+          name="keyboard-arrow-right"
+          size={22}
+          color="#595F60"
+          style={{ marginRight: 10 }}
+        />
+      </View>
+
+      <View style={styles.similarShowsList}>
+        {/* show list */}
+        <FlatList
+          data={showData.results}
+          renderItem={({ item }) => (
+            <ShowItemPortrait
+              image={item.poster_path}
+              btnAction={() => changeShowData(item.id)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+    </View>
+  );
+};
 const ShowScreen = () => {
   const route = useRoute();
   const { poster_path, backdrop_path, title, release_date, overview, genres } =
@@ -36,62 +84,67 @@ const ShowScreen = () => {
       `https://api.themoviedb.org/3/movie/${route.params?.id}?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US`
     );
   return (
-    <SafeAreaView style={styles.container}>
-      {/* header */}
-      <ShowHeader title={title} />
-      {/* show image/video banner */}
-      <Image
-        source={{
-          uri: `https://image.tmdb.org/t/p/w500${backdrop_path}`,
-        }}
-        style={styles.showImagePrimary}
-      />
-
-      <View style={styles.showInfoContainer}>
-        {/* show poster small */}
+    <ScrollView contentContainerStyle={styles.container}>
+      <SafeAreaView>
+        {/* header */}
+        <ShowHeader title={title} />
+        {/* show image/video banner */}
         <Image
           source={{
-            uri: `https://image.tmdb.org/t/p/w500${poster_path}`,
+            uri: `https://image.tmdb.org/t/p/w500${backdrop_path}`,
           }}
-          style={styles.showImageSecondary}
+          style={styles.showImagePrimary}
         />
-        {/* show details */}
-        <View style={styles.showDetailsContainer}>
-          {/* title */}
-          <Text style={styles.title}>{title}</Text>
-          {/* genres */}
-          <View style={styles.genreContainer}>
-            {genres.map((genre, index) => (
-              <>
-                <Text style={styles.genre}>{genre.name}</Text>
-                {index < genres.length - 1 && (
-                  <Entypo name="dot-single" size={15} color="#868E90" />
-                )}
-              </>
-            ))}
-          </View>
-          {/* release year and viewing rating */}
-          <Text style={styles.releaseYear}>
-            {moment(release_date).format("YYYY")} . V/A 13+
-          </Text>
-        </View>
-      </View>
-      {/* show description */}
-      <Text style={styles.description} numberOfLines={3}>
-        {overview}
-      </Text>
-      {/* actors name */}
-      <Text style={styles.actors}>
-        Starring Lupita Nyong'o, letitia Wright, Danai Gurira
-      </Text>
 
-      {/* action buttons */}
-      <View style={styles.actionBtnContainer}>
-        <UIButton text="download" />
-        <UIButton text="watchlist" />
-        <UIButton text="share" />
-      </View>
-    </SafeAreaView>
+        <View style={styles.showInfoContainer}>
+          {/* show poster small */}
+          <Image
+            source={{
+              uri: `https://image.tmdb.org/t/p/w500${poster_path}`,
+            }}
+            style={styles.showImageSecondary}
+          />
+          {/* show details */}
+          <View style={styles.showDetailsContainer}>
+            {/* title */}
+            <Text style={styles.title}>{title}</Text>
+            {/* genres */}
+            <View style={styles.genreContainer}>
+              {genres?.map((genre, index) => (
+                <React.Fragment key={index}>
+                  <Text style={styles.genre}>{genre.name}</Text>
+                  {index < genres.length - 1 && (
+                    <Entypo name="dot-single" size={15} color="#868E90" />
+                  )}
+                </React.Fragment>
+              ))}
+            </View>
+            {/* release year and viewing rating */}
+            <Text style={styles.releaseYear}>
+              {moment(release_date).format("YYYY")} . V/A 13+
+            </Text>
+          </View>
+        </View>
+        {/* show description */}
+        <Text style={styles.description} numberOfLines={3}>
+          {overview ? overview : "No description available"}
+        </Text>
+        {/* actors name */}
+        <Text style={styles.actors}>
+          Starring Lupita Nyong'o, letitia Wright, Danai Gurira
+        </Text>
+
+        {/* action buttons */}
+        <View style={styles.actionBtnContainer}>
+          <UIButton text="download" />
+          <UIButton text="watchlist" />
+          <UIButton text="share" />
+        </View>
+
+        {/* similar shows */}
+        <SimilarShows id={route.params?.id} />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -133,6 +186,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 3,
+    flexWrap: "wrap",
   },
   genre: {
     fontSize: 12,
@@ -171,5 +225,28 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginLeft: 15,
     textTransform: "capitalize",
+  },
+
+  // similar shows
+  similarShowsContainer: {
+    paddingLeft: 10,
+    marginTop: 15,
+    paddingVertical: 5,
+    backgroundColor: "#101211",
+  },
+  similarShowsHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  similarShowsHeading: {
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#fff",
+    textTransform: "capitalize",
+    flex: 1,
+  },
+  similarShowsList: {
+    marginTop: 10,
   },
 });

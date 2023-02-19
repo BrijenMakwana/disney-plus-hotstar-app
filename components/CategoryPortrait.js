@@ -31,7 +31,7 @@ const CategoryPortrait = (props) => {
         <FlatList
           data={showData.results}
           renderItem={({ item }) => (
-            <ShowItemPortrait image={item.poster_path} openModal={openModal} />
+            <ShowItemPortrait image={item.poster_path} btnAction={openModal} />
           )}
           keyExtractor={(item) => item.id}
           horizontal
@@ -47,12 +47,13 @@ export default CategoryPortrait;
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
+    marginTop: 10,
+    paddingVertical: 5,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 15,
   },
   categoryTitle: {
     fontSize: 15,
