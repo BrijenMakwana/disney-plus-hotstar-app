@@ -11,7 +11,7 @@ import UIButton from "../components/UIButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useAPI from "../hooks/useAPI";
 import moment from "moment";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 
 // TODO: API will change for tv shows
 
@@ -59,8 +59,17 @@ const ShowScreen = () => {
         <View style={styles.showDetailsContainer}>
           {/* title */}
           <Text style={styles.title}>{title}</Text>
-          {/* genre */}
-          <Text style={styles.genre}>{genres?.map((genre) => genre.name)}</Text>
+          {/* genres */}
+          <View style={styles.genreContainer}>
+            {genres.map((genre, index) => (
+              <>
+                <Text style={styles.genre}>{genre.name}</Text>
+                {index < genres.length - 1 && (
+                  <Entypo name="dot-single" size={15} color="#868E90" />
+                )}
+              </>
+            ))}
+          </View>
           {/* release year and viewing rating */}
           <Text style={styles.releaseYear}>
             {moment(release_date).format("YYYY")} . V/A 13+
@@ -119,10 +128,14 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
     color: "#fff",
   },
+  genreContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 3,
+  },
   genre: {
     fontSize: 12,
     color: "#868E90",
-    marginTop: 3,
   },
   releaseYear: { fontSize: 12, color: "#868E90", marginTop: 3 },
   description: {
