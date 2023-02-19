@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   showImageSecondary: {
     width: 60,
     height: 90,
+    borderRadius: 3,
   },
   showDetailsContainer: {
     flex: 1,
