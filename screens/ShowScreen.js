@@ -5,6 +5,8 @@ import { useRoute } from "@react-navigation/native";
 import useAPI from "../hooks/useAPI";
 import moment from "moment";
 
+// TODO: API will change for tv shows
+
 const ShowScreen = () => {
   const route = useRoute();
   const { poster_path, backdrop_path, title, release_date, overview, genres } =

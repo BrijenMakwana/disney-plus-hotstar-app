@@ -14,12 +14,15 @@ import CategoryPortrait from "../components/CategoryPortrait";
 import CategoryTopShows from "../components/CategoryTopShows";
 import ShowCard from "../components/ShowCard";
 import { APIUrls } from "../APIRequests/APIUrls";
+import Header from "../components/Header";
 
 const HomeScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState([]);
   return (
     <ScrollView style={styles.container}>
+      {/* header */}
+      <Header />
       {/* banners */}
       <View style={styles.bannerList}>
         <FlatList
@@ -130,7 +133,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#101211",
   },
   bannerList: {
-    marginTop: 50,
     marginBottom: 20,
   },
   showModal: {
