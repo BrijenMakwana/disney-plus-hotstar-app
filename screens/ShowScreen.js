@@ -1,11 +1,33 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import UIButton from "../components/UIButton";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import useAPI from "../hooks/useAPI";
 import moment from "moment";
+import { Ionicons } from "@expo/vector-icons";
 
 // TODO: API will change for tv shows
+
+const ShowHeader = (props) => {
+  const navigation = useNavigation();
+  const { title } = props;
+  return (
+    <View style={styles.showHeaderContainer}>
+      <Pressable onPress={() => navigation.goBack()}>
+        <Ionicons name="arrow-back" size={24} color="#fff" />
+      </Pressable>
+      <Text style={styles.headerTitle}>{title}</Text>
+      <Ionicons name="search" size={20} color="#fff" />
+    </View>
+  );
+};
 
 const ShowScreen = () => {
   const route = useRoute();
@@ -15,6 +37,8 @@ const ShowScreen = () => {
     );
   return (
     <SafeAreaView style={styles.container}>
+      {/* header */}
+      <ShowHeader title={title} />
       {/* show image/video banner */}
       <Image
         source={{
@@ -118,5 +142,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 15,
+  },
+  // header
+  showHeaderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+    marginTop: 50,
+    marginBottom: 15,
+  },
+  headerTitle: {
+    flex: 1,
+    fontSize: 20,
+    color: "#fff",
+    marginLeft: 15,
+    textTransform: "capitalize",
   },
 });

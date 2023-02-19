@@ -15,12 +15,14 @@ import CategoryTopShows from "../components/CategoryTopShows";
 import ShowCard from "../components/ShowCard";
 import { APIUrls } from "../APIRequests/APIUrls";
 import Header from "../components/Header";
+import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState([]);
   return (
     <ScrollView style={styles.container}>
+      <StatusBar style="light" />
       {/* header */}
       <Header />
       {/* banners */}
