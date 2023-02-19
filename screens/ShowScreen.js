@@ -7,7 +7,6 @@ import {
   View,
   FlatList,
   ScrollView,
-  WebView,
 } from "react-native";
 import React from "react";
 import UIButton from "../components/UIButton";
@@ -16,6 +15,7 @@ import useAPI from "../hooks/useAPI";
 import moment from "moment";
 import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
 import ShowItemPortrait from "../components/ShowItemPortrait";
+import YouTubeCard from "../components/YouTubeCard";
 
 // TODO: API will change for tv shows
 
@@ -83,67 +83,83 @@ const ShowScreen = () => {
     useAPI(
       `https://api.themoviedb.org/3/movie/${route.params?.id}?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US`
     );
+  const videos = useAPI(
+    `https://api.themoviedb.org/3/movie/${route.params?.id}/videos?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US`
+  );
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <SafeAreaView>
-        {/* header */}
-        <ShowHeader title={title} />
-        {/* show image/video banner */}
+    <ScrollView style={styles.container}>
+      {/* header */}
+      <ShowHeader title={title} />
+
+      {/* show image/video banner */}
+      <Image
+        source={{
+          uri: `https://image.tmdb.org/t/p/w500${backdrop_path}`,
+        }}
+        style={styles.showImagePrimary}
+      />
+
+      <View style={styles.showInfoContainer}>
+        {/* show poster small */}
         <Image
           source={{
-            uri: `https://image.tmdb.org/t/p/w500${backdrop_path}`,
+            uri: `https://image.tmdb.org/t/p/w500${poster_path}`,
           }}
-          style={styles.showImagePrimary}
+          style={styles.showImageSecondary}
         />
-
-        <View style={styles.showInfoContainer}>
-          {/* show poster small */}
-          <Image
-            source={{
-              uri: `https://image.tmdb.org/t/p/w500${poster_path}`,
-            }}
-            style={styles.showImageSecondary}
-          />
-          {/* show details */}
-          <View style={styles.showDetailsContainer}>
-            {/* title */}
-            <Text style={styles.title}>{title}</Text>
-            {/* genres */}
-            <View style={styles.genreContainer}>
-              {genres?.map((genre, index) => (
-                <React.Fragment key={index}>
-                  <Text style={styles.genre}>{genre.name}</Text>
-                  {index < genres.length - 1 && (
-                    <Entypo name="dot-single" size={15} color="#868E90" />
-                  )}
-                </React.Fragment>
-              ))}
-            </View>
-            {/* release year and viewing rating */}
-            <Text style={styles.releaseYear}>
-              {moment(release_date).format("YYYY")} . V/A 13+
-            </Text>
+        {/* show details */}
+        <View style={styles.showDetailsContainer}>
+          {/* title */}
+          <Text style={styles.title}>{title}</Text>
+          {/* genres */}
+          <View style={styles.genreContainer}>
+            {genres?.map((genre, index) => (
+              <React.Fragment key={index}>
+                <Text style={styles.genre}>{genre.name}</Text>
+                {index < genres.length - 1 && (
+                  <Entypo name="dot-single" size={15} color="#868E90" />
+                )}
+              </React.Fragment>
+            ))}
           </View>
+          {/* release year and viewing rating */}
+          <Text style={styles.releaseYear}>
+            {moment(release_date).format("YYYY")} . V/A 13+
+          </Text>
         </View>
-        {/* show description */}
-        <Text style={styles.description} numberOfLines={3}>
-          {overview ? overview : "No description available"}
-        </Text>
-        {/* actors name */}
-        <Text style={styles.actors}>
-          Starring Lupita Nyong'o, letitia Wright, Danai Gurira
-        </Text>
+      </View>
+      {/* show description */}
+      <Text style={styles.description} numberOfLines={3}>
+        {overview ? overview : "No description available"}
+      </Text>
+      {/* actors name */}
+      <Text style={styles.actors}>
+        Starring Lupita Nyong'o, letitia Wright, Danai Gurira
+      </Text>
 
-        {/* action buttons */}
-        <View style={styles.actionBtnContainer}>
-          <UIButton text="download" />
-          <UIButton text="watchlist" />
-          <UIButton text="share" />
+      {/* action buttons */}
+      <View style={styles.actionBtnContainer}>
+        <UIButton text="download" />
+        <UIButton text="watchlist" />
+        <UIButton text="share" />
+      </View>
+
+      {/* videos */}
+      <View style={styles.videosContainer}>
+        <Text style={styles.videoHeading}>Trailers & Extras</Text>
+        <View style={styles.videoList}>
+          <FlatList
+            data={videos.results}
+            renderItem={({ item }) => <YouTubeCard videoKey={item.key} />}
+            keyExtractor={(item) => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
+      </View>
 
-        {/* similar shows */}
-        <SimilarShows id={route.params?.id} />
-      </SafeAreaView>
+      {/* similar shows */}
+      <SimilarShows id={route.params?.id} />
     </ScrollView>
   );
 };
@@ -225,6 +241,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginLeft: 15,
     textTransform: "capitalize",
+  },
+  videosContainer: {
+    paddingLeft: 10,
+    marginTop: 15,
+    paddingVertical: 5,
+  },
+
+  videoHeading: {
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#fff",
+    textTransform: "capitalize",
+    flex: 1,
+  },
+  videoList: {
+    marginTop: 10,
   },
 
   // similar shows
