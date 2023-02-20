@@ -268,7 +268,8 @@ const styles = StyleSheet.create({
   similarShowsContainer: {
     paddingLeft: 10,
     marginTop: 15,
-    paddingVertical: 5,
+    paddingTop: 5,
+    paddingBottom: 20,
     backgroundColor: "#101211",
   },
   similarShowsHeader: {
