@@ -20,6 +20,7 @@ import { StatusBar } from "expo-status-bar";
 const HomeScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState([]);
+  const [type, setType] = useState("");
   return (
     <ScrollView style={styles.container}>
       <StatusBar style="light" />
@@ -52,6 +53,8 @@ const HomeScreen = () => {
           setShowModal={setShowModal}
           apiUrl={APIUrls[0].url}
           setModalData={setModalData}
+          type={APIUrls[0].type}
+          setType={setType}
         />
 
         <CategoryTopShows
@@ -59,18 +62,24 @@ const HomeScreen = () => {
           setShowModal={setShowModal}
           apiUrl={APIUrls[1].url}
           setModalData={setModalData}
+          type={APIUrls[1].type}
+          setType={setType}
         />
         <CategoryLandscape
           categoryTitle={APIUrls[2].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[2].url}
           setModalData={setModalData}
+          type={APIUrls[2].type}
+          setType={setType}
         />
         <CategoryLandscape
           categoryTitle={APIUrls[3].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[3].url}
           setModalData={setModalData}
+          type={APIUrls[3].type}
+          setType={setType}
         />
 
         <CategoryPortrait
@@ -78,18 +87,24 @@ const HomeScreen = () => {
           setShowModal={setShowModal}
           apiUrl={APIUrls[4].url}
           setModalData={setModalData}
+          type={APIUrls[4].type}
+          setType={setType}
         />
         <CategoryTopShows
           categoryTitle={APIUrls[5].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[5].url}
           setModalData={setModalData}
+          type={APIUrls[5].type}
+          setType={setType}
         />
         <CategoryPortrait
           categoryTitle={APIUrls[6].title}
           setShowModal={setShowModal}
           apiUrl={APIUrls[6].url}
           setModalData={setModalData}
+          type={APIUrls[6].type}
+          setType={setType}
         />
 
         {/* show modal */}
@@ -110,6 +125,7 @@ const HomeScreen = () => {
                     title={item?.title || item?.name}
                     description={item.overview}
                     setShowModal={setShowModal}
+                    type={type}
                   />
                 )}
                 keyExtractor={(item) => item.id}

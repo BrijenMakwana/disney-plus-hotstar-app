@@ -5,12 +5,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import useAPI from "../hooks/useAPI";
 
 const CategoryLandscape = (props) => {
-  const { categoryTitle, setShowModal, apiUrl, setModalData } = props;
+  const { categoryTitle, setShowModal, apiUrl, setModalData, type, setType } =
+    props;
   const showData = useAPI(apiUrl);
 
   const openModal = () => {
     setShowModal(true);
     setModalData(showData.results);
+    setType(type);
   };
 
   return (

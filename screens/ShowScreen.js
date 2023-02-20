@@ -34,17 +34,20 @@ const ShowHeader = (props) => {
 };
 
 const SimilarShows = (props) => {
-  const { id } = props;
+  const { id, type } = props;
   const navigation = useNavigation();
   const showData = useAPI(
-    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US&page=1`
+    `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US&page=1`
   );
 
   const changeShowData = (id) => {
     navigation.push("Show", {
       id: id,
+      type: type,
     });
   };
+
+  if (!showData) return;
 
   return (
     <View style={styles.similarShowsContainer}>
@@ -81,10 +84,10 @@ const ShowScreen = () => {
   const route = useRoute();
   const { poster_path, backdrop_path, title, release_date, overview, genres } =
     useAPI(
-      `https://api.themoviedb.org/3/movie/${route.params?.id}?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US`
+      `https://api.themoviedb.org/3/${route.params?.type}/${route.params?.id}?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US`
     );
   const videos = useAPI(
-    `https://api.themoviedb.org/3/movie/${route.params?.id}/videos?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US`
+    `https://api.themoviedb.org/3/${route.params?.type}/${route.params?.id}/videos?api_key=5855e9b9f4ec1fd91373dae25331f786&language=en-US`
   );
   return (
     <ScrollView style={styles.container}>
@@ -145,21 +148,23 @@ const ShowScreen = () => {
       </View>
 
       {/* videos */}
-      <View style={styles.videosContainer}>
-        <Text style={styles.videoHeading}>Trailers & Extras</Text>
-        <View style={styles.videoList}>
-          <FlatList
-            data={videos.results}
-            renderItem={({ item }) => <YouTubeCard videoKey={item.key} />}
-            keyExtractor={(item) => item.id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          />
+      {videos.results?.length > 0 && (
+        <View style={styles.videosContainer}>
+          <Text style={styles.videoHeading}>Trailers & Extras</Text>
+          <View style={styles.videoList}>
+            <FlatList
+              data={videos.results}
+              renderItem={({ item }) => <YouTubeCard videoKey={item.key} />}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
         </View>
-      </View>
+      )}
 
       {/* similar shows */}
-      <SimilarShows id={route.params?.id} />
+      <SimilarShows id={route.params?.id} type={route.params?.type} />
     </ScrollView>
   );
 };

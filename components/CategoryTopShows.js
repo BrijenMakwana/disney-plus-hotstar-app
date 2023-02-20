@@ -5,12 +5,14 @@ import TopShowItem from "./TopShowItem";
 import useAPI from "../hooks/useAPI";
 
 const CategoryTopShows = (props) => {
-  const { categoryTitle, apiUrl, setShowModal, setModalData } = props;
+  const { categoryTitle, apiUrl, setShowModal, setModalData, type, setType } =
+    props;
   const showData = useAPI(apiUrl);
 
   const openModal = () => {
     setShowModal(true);
     setModalData(showData.results);
+    setType(type);
   };
 
   return (

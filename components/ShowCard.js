@@ -11,7 +11,7 @@ import { Octicons, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const ShowCard = (props) => {
-  const { id, image, title, description, setShowModal } = props;
+  const { id, image, title, description, setShowModal, type } = props;
 
   const navigation = useNavigation();
 
@@ -19,6 +19,7 @@ const ShowCard = (props) => {
     setShowModal(false);
     navigation.navigate("Show", {
       id: id,
+      type: type,
     });
   };
 
